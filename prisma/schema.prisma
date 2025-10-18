@@ -1,3 +1,4 @@
+// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,20 +16,18 @@ model Product {
   stock       Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
-  // Relacionamento inverso com OrderItem
-  items OrderItem[]
+  items       OrderItem[]
 }
 
 model Order {
-  id        String   @id @default(cuid())
-  status    String // "pending", "shipped", "delivered"
-  total     Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relacionamento com OrderItem
-  items OrderItem[]
+  id          String      @id @default(cuid())
+  customer    String
+  email       String
+  status      String // "pending", "completed", "cancelled", "shipped"
+  total       Float
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  items       OrderItem[]
 }
 
 model OrderItem {
@@ -36,6 +35,9 @@ model OrderItem {
   orderId   String
   productId String
   quantity  Int
+  price     Float
   order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product   Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
 }
