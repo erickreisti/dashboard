@@ -1,1 +1,177 @@
 @import "tailwindcss";
+
+/* ===== BREAKPOINTS CUSTOMIZADOS ===== */
+@custom-variant xs (& (min-width: 375px));
+@custom-variant sm (& (min-width: 640px));
+@custom-variant md (& (min-width: 768px));
+@custom-variant lg (& (min-width: 1024px));
+@custom-variant xl (& (min-width: 1280px));
+@custom-variant 2xl (& (min-width: 1536px));
+
+/* ===== COMPONENTS ESPECÍFICOS PARA HEADER ===== */
+@layer components {
+  /* Container responsivo para header */
+  .container-responsive {
+    @apply w-full px-3 xs:px-4 sm:px-6 lg:px-8 mx-auto;
+    max-width: 100%;
+  }
+
+  /* Altura responsiva do header */
+  .h-responsive {
+    @apply h-12 sm:h-14 md:h-16;
+  }
+
+  /* Input responsivo para search */
+  .input-responsive {
+    @apply flex w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Espaçamento horizontal responsivo */
+  .space-x-responsive {
+    @apply space-x-2 sm:space-x-3 md:space-x-4;
+  }
+}
+
+/* ===== UTILITIES PARA HEADER ===== */
+@layer utilities {
+  /* Texto responsivo para header */
+  .text-responsive-xs {
+    @apply text-xs xs:text-sm;
+  }
+
+  .text-responsive-sm {
+    @apply text-sm xs:text-base;
+  }
+
+  .text-responsive-base {
+    @apply text-base sm:text-lg;
+  }
+
+  /* Mostrar/esconder elementos por breakpoint */
+  .mobile-only {
+    @apply block lg:hidden;
+  }
+
+  .desktop-only {
+    @apply hidden lg:block;
+  }
+
+  .tablet-only {
+    @apply hidden md:block lg:hidden;
+  }
+}
+
+/* ===== ANIMAÇÕES PARA MENU MOBILE ===== */
+@layer utilities {
+  .menu-slide-down {
+    animation: menuSlideDown 0.3s ease-out;
+  }
+
+  .menu-slide-up {
+    animation: menuSlideUp 0.3s ease-in;
+  }
+}
+
+@keyframes menuSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes menuSlideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* ===== ESTILOS ESPECÍFICOS PARA HEADER ===== */
+@layer base {
+  /* Melhorar performance de scroll no header sticky */
+  .sticky-header {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
+  }
+
+  /* Prevenir flash de conteúdo em mobile */
+  @media (max-width: 1024px) {
+    .header-initial {
+      opacity: 0;
+    }
+
+    .header-loaded {
+      opacity: 1;
+      transition: opacity 0.3s ease-in;
+    }
+  }
+}
+
+/* ===== MELHORIAS DE ACESSIBILIDADE ===== */
+@layer utilities {
+  /* Foco visível para elementos interativos */
+  .header-focus {
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  }
+
+  /* High contrast para melhor legibilidade */
+  @media (prefers-contrast: high) {
+    .header-high-contrast {
+      border-color: #000;
+    }
+  }
+}
+
+/* ===== OTIMIZAÇÕES PARA MOBILE ===== */
+@layer utilities {
+  /* Prevenir zoom em inputs no iOS */
+  @media (max-width: 640px) {
+    input[type="text"],
+    input[type="search"] {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Melhorar toque em mobile */
+  @media (max-width: 1024px) {
+    .header-touch {
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+  .header-dark {
+    background-color: #1f2937;
+    border-color: #374151;
+    color: #f9fafb;
+  }
+
+  .header-dark input {
+    background-color: #374151;
+    border-color: #4b5563;
+    color: #f9fafb;
+  }
+
+  .header-dark input::placeholder {
+    color: #9ca3af;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
