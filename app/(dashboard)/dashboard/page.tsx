@@ -1,3 +1,9 @@
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
 import { MetricCard } from "./components/MetricCard";
 import { OrdersTable } from "./components/OrdersTable";
 import { SalesChart } from "./components/SalesChart";
@@ -7,7 +13,7 @@ import {
   getRecentOrders,
   getSalesByMonth,
   getLowStockProducts,
-} from "@/lib/actions";
+} from "@/lib/actions/actions";
 import {
   DollarSign,
   ShoppingCart,
@@ -36,21 +42,22 @@ export default async function DashboardPage() {
             Bem-vindo ao seu painel administrativo
           </p>
         </div>
-        <div className="bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg border border-gray-200/60 shadow-sm">
-          <p className="text-sm font-medium text-gray-900">
-            {new Date().toLocaleDateString("pt-BR", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
-        </div>
+        <Card className="px-4 py-2">
+          <CardContent className="p-0">
+            <p className="text-sm font-medium text-gray-900">
+              {new Date().toLocaleDateString("pt-BR", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </p>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Grid de Métricas */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-        {/* Vendas Totais */}
         <MetricCard
           title="Vendas Totais"
           value={`R$ ${metrics.totalSales.toLocaleString("pt-BR", {
@@ -61,7 +68,6 @@ export default async function DashboardPage() {
           trend="up"
         />
 
-        {/* Total de Pedidos */}
         <MetricCard
           title="Total de Pedidos"
           value={metrics.totalOrders.toString()}
@@ -70,7 +76,6 @@ export default async function DashboardPage() {
           trend="up"
         />
 
-        {/* Produtos Cadastrados */}
         <MetricCard
           title="Produtos Cadastrados"
           value={metrics.totalProducts.toString()}
@@ -79,7 +84,6 @@ export default async function DashboardPage() {
           trend="up"
         />
 
-        {/* Pedidos Pendentes */}
         <MetricCard
           title="Pedidos Pendentes"
           value={metrics.pendingOrders.toString()}
@@ -93,13 +97,13 @@ export default async function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Gráfico de Vendas */}
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-xl border border-gray-200/60 shadow-sm">
-            <div className="p-6 border-b border-gray-200">
+          <Card>
+            <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-900">
+                  <CardTitle className="text-lg font-semibold text-gray-900">
                     Desempenho de Vendas
-                  </h2>
+                  </CardTitle>
                   <p className="text-sm text-gray-600">
                     Vendas mensais do último semestre
                   </p>
@@ -109,24 +113,24 @@ export default async function DashboardPage() {
                   <span className="text-sm font-medium">+12.5%</span>
                 </div>
               </div>
-            </div>
-            <div className="p-6">
+            </CardHeader>
+            <CardContent>
               <SalesChart data={salesData} />
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Alertas e Estatísticas Rápidas */}
         <div className="space-y-6">
-          {/* Alertas de Estoque */}
           <LowStockAlert products={lowStockProducts} />
 
-          {/* Estatísticas Rápidas */}
-          <div className="bg-white rounded-xl border border-gray-200/60 shadow-sm p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Resumo Rápido
-            </h3>
-            <div className="space-y-4">
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg font-semibold text-gray-900">
+                Resumo Rápido
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="bg-blue-100 p-2 rounded-lg">
@@ -175,19 +179,19 @@ export default async function DashboardPage() {
                   R$ 245,80
                 </span>
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
 
       {/* Tabela de Pedidos Recentes */}
-      <div className="bg-white rounded-xl border border-gray-200/60 shadow-sm">
-        <div className="p-6 border-b border-gray-200">
+      <Card>
+        <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">
+              <CardTitle className="text-lg font-semibold text-gray-900">
                 Pedidos Recentes
-              </h2>
+              </CardTitle>
               <p className="text-sm text-gray-600">
                 Últimos pedidos realizados
               </p>
@@ -196,11 +200,11 @@ export default async function DashboardPage() {
               Ver todos →
             </button>
           </div>
-        </div>
-        <div className="p-6">
+        </CardHeader>
+        <CardContent>
           <OrdersTable orders={orders} />
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

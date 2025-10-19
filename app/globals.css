@@ -1,78 +1,68 @@
 @import "tailwindcss";
 
-/* ===== BREAKPOINTS CUSTOMIZADOS ===== */
-@custom-variant xs (& (min-width: 375px));
-@custom-variant sm (& (min-width: 640px));
-@custom-variant md (& (min-width: 768px));
-@custom-variant lg (& (min-width: 1024px));
-@custom-variant xl (& (min-width: 1280px));
-@custom-variant 2xl (& (min-width: 1536px));
-
-/* ===== COMPONENTS ESPECÍFICOS PARA HEADER ===== */
-@layer components {
-  /* Container responsivo para header */
-  .container-responsive {
-    @apply w-full px-3 xs:px-4 sm:px-6 lg:px-8 mx-auto;
-    max-width: 100%;
-  }
-
-  /* Altura responsiva do header */
-  .h-responsive {
-    @apply h-12 sm:h-14 md:h-16;
-  }
-
-  /* Input responsivo para search */
-  .input-responsive {
-    @apply flex w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
-  }
-
-  /* Espaçamento horizontal responsivo */
-  .space-x-responsive {
-    @apply space-x-2 sm:space-x-3 md:space-x-4;
-  }
+/* ===== VARIÁVEIS DE CORES ===== */
+:root {
+  --primary-blue: #2563eb;
+  --primary-blue-hover: #1d4ed8;
 }
 
-/* ===== UTILITIES PARA HEADER ===== */
-@layer utilities {
-  /* Texto responsivo para header */
+/* ===== CLASSES UTILITÁRIAS ===== */
+@layer components {
+  /* Container responsivo */
+  .container-responsive {
+    @apply w-full px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl;
+  }
+
+  /* Header responsivo */
+  .h-responsive {
+    @apply h-14 sm:h-16;
+  }
+
   .text-responsive-xs {
-    @apply text-xs xs:text-sm;
+    @apply text-xs sm:text-sm;
   }
 
   .text-responsive-sm {
-    @apply text-sm xs:text-base;
+    @apply text-sm sm:text-base;
   }
 
   .text-responsive-base {
     @apply text-base sm:text-lg;
   }
 
-  /* Mostrar/esconder elementos por breakpoint */
-  .mobile-only {
-    @apply block lg:hidden;
-  }
-
-  .desktop-only {
-    @apply hidden lg:block;
-  }
-
-  .tablet-only {
-    @apply hidden md:block lg:hidden;
+  /* Input responsivo */
+  .input-responsive {
+    @apply flex w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200;
   }
 }
 
-/* ===== ANIMAÇÕES PARA MENU MOBILE ===== */
+/* ===== ANIMAÇÕES ===== */
 @layer utilities {
-  .menu-slide-down {
-    animation: menuSlideDown 0.3s ease-out;
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
   }
 
-  .menu-slide-up {
-    animation: menuSlideUp 0.3s ease-in;
+  .slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  .slide-up {
+    animation: slideUp 0.3s ease-in;
   }
 }
 
-@keyframes menuSlideDown {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
   from {
     opacity: 0;
     transform: translateY(-10px);
@@ -83,7 +73,7 @@
   }
 }
 
-@keyframes menuSlideUp {
+@keyframes slideUp {
   from {
     opacity: 1;
     transform: translateY(0);
@@ -94,84 +84,39 @@
   }
 }
 
-/* ===== ESTILOS ESPECÍFICOS PARA HEADER ===== */
-@layer base {
-  /* Melhorar performance de scroll no header sticky */
-  .sticky-header {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000;
-  }
-
-  /* Prevenir flash de conteúdo em mobile */
-  @media (max-width: 1024px) {
-    .header-initial {
-      opacity: 0;
-    }
-
-    .header-loaded {
-      opacity: 1;
-      transition: opacity 0.3s ease-in;
-    }
-  }
+/* ===== SCROLLBAR PERSONALIZADA ===== */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
 }
 
-/* ===== MELHORIAS DE ACESSIBILIDADE ===== */
-@layer utilities {
-  /* Foco visível para elementos interativos */
-  .header-focus {
-    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
-  }
-
-  /* High contrast para melhor legibilidade */
-  @media (prefers-contrast: high) {
-    .header-high-contrast {
-      border-color: #000;
-    }
-  }
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
 }
 
-/* ===== OTIMIZAÇÕES PARA MOBILE ===== */
-@layer utilities {
-  /* Prevenir zoom em inputs no iOS */
-  @media (max-width: 640px) {
-    input[type="text"],
-    input[type="search"] {
-      font-size: 16px !important;
-    }
-  }
-
-  /* Melhorar toque em mobile */
-  @media (max-width: 1024px) {
-    .header-touch {
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-  }
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
 }
 
-/* ===== DARK MODE SUPPORT ===== */
-@media (prefers-color-scheme: dark) {
-  .header-dark {
-    background-color: #1f2937;
-    border-color: #374151;
-    color: #f9fafb;
-  }
-
-  .header-dark input {
-    background-color: #374151;
-    border-color: #4b5563;
-    color: #f9fafb;
-  }
-
-  .header-dark input::placeholder {
-    color: #9ca3af;
-  }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
 }
 
-/* ===== PRINT STYLES ===== */
-@media print {
-  .no-print {
-    display: none !important;
-  }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+.mobile-only {
+  @apply block lg:hidden;
+}
+
+.desktop-only {
+  @apply hidden lg:block;
+}
+
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
 }
