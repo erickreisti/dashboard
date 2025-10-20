@@ -6,12 +6,12 @@ import {
   BarChart3,
   ShoppingBag,
   Package,
-  Users,
   Menu,
   X,
   Bell,
   Search,
   User,
+  TrendingUp,
 } from "lucide-react";
 
 export default function Header() {
