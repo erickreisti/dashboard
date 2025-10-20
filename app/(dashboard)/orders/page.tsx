@@ -61,80 +61,8 @@ export default async function OrdersPage({ searchParams }: OrdersPageProps) {
         </Card>
       </div>
 
-      {/* KPI Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-gradient-to-r from-purple-500 to-violet-600 text-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-purple-100">
-                  Total Pedidos
-                </p>
-                <p className="text-2xl font-bold">{stats.totalOrders}</p>
-                <p className="text-xs text-purple-200 mt-1">Todos os status</p>
-              </div>
-              <ShoppingBag className="h-8 w-8 text-purple-200" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-gradient-to-r from-blue-500 to-cyan-600 text-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-blue-100">
-                  Receita Total
-                </p>
-                <p className="text-2xl font-bold">
-                  R${" "}
-                  {stats.totalRevenue.toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </p>
-                <div className="flex items-center space-x-1 mt-1">
-                  <TrendingUp className="h-3 w-3" />
-                  <p className="text-xs text-blue-200">Vendas concluídas</p>
-                </div>
-              </div>
-              <BarChart3 className="h-8 w-8 text-blue-200" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-gradient-to-r from-amber-500 to-yellow-600 text-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-amber-100">Pendentes</p>
-                <p className="text-2xl font-bold">{stats.pendingOrders}</p>
-                <p className="text-xs text-amber-200 mt-1">
-                  Aguardando processamento
-                </p>
-              </div>
-              <div className="w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center">
-                <span className="text-sm font-bold">!</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-gradient-to-r from-green-500 to-emerald-600 text-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-green-100">Concluídos</p>
-                <p className="text-2xl font-bold">{stats.completedOrders}</p>
-                <p className="text-xs text-green-200 mt-1">
-                  Entregues com sucesso
-                </p>
-              </div>
-              <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
-                <span className="text-sm font-bold">✓</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      {/* KPI Grid - Usando OrderStats */}
+      <OrderStats stats={stats} />
 
       {/* Charts and Analytics */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

@@ -72,80 +72,8 @@ export default async function ProductsPage({
         </Card>
       </div>
 
-      {/* KPI Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-gradient-to-r from-green-500 to-emerald-600 text-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-green-100">
-                  Total Produtos
-                </p>
-                <p className="text-2xl font-bold">{stats.totalProducts}</p>
-                <p className="text-xs text-green-200 mt-1">No catálogo ativo</p>
-              </div>
-              <Package className="h-8 w-8 text-green-200" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-gradient-to-r from-blue-500 to-cyan-600 text-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-blue-100">Valor Total</p>
-                <p className="text-2xl font-bold">
-                  R${" "}
-                  {stats.totalValue.toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </p>
-                <div className="flex items-center space-x-1 mt-1">
-                  <TrendingUp className="h-3 w-3" />
-                  <p className="text-xs text-blue-200">Em inventário</p>
-                </div>
-              </div>
-              <BarChart3 className="h-8 w-8 text-blue-200" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-gradient-to-r from-orange-500 to-amber-600 text-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-orange-100">
-                  Estoque Baixo
-                </p>
-                <p className="text-2xl font-bold">{stats.lowStock}</p>
-                <p className="text-xs text-orange-200 mt-1">
-                  Necessitam atenção
-                </p>
-              </div>
-              <div className="w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center">
-                <span className="text-sm font-bold">!</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-gradient-to-r from-red-500 to-rose-600 text-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-red-100">Sem Estoque</p>
-                <p className="text-2xl font-bold">{stats.outOfStock}</p>
-                <p className="text-xs text-red-200 mt-1">
-                  Precisam de reposição
-                </p>
-              </div>
-              <div className="w-8 h-8 bg-red-400 rounded-full flex items-center justify-center">
-                <span className="text-sm font-bold">0</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      {/* KPI Grid - Usando ProductStats */}
+      <ProductStats stats={stats} />
 
       {/* Charts and Analytics */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
