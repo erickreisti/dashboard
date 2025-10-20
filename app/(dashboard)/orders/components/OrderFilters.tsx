@@ -64,7 +64,7 @@ export function OrderFilters({ searchParams }: OrderFiltersProps) {
   return (
     <Card>
       <CardContent className="p-6">
-        <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-end">
+        <div className="flex flex-col lg:flex-col gap-4 items-start lg:items-start">
           {/* Search */}
           <div className="flex-1 w-full">
             <label className="block text-sm font-medium text-gray-700 mb-2">
